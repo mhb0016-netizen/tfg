@@ -1,0 +1,109 @@
+/* Mapa de Sevilla Este: estilos de toda la web */
+/* ===== General (mapa y panel) ===== */
+:root{--bur:#7a1230;--bur2:#4a0b1d;--gold:#f2b705;--gold2:#ffd966;--cream:#fff8e8;--ink:#2a0a14;--mu:#8a6b5c;--line:#ecdcc0}
+*{box-sizing:border-box}
+body{margin:0;font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:var(--cream)}
+header{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:0 16px;height:56px;background:linear-gradient(90deg,var(--bur2),var(--bur));color:var(--cream);border-bottom:3px solid var(--gold)}
+h1{font-size:19px;margin:0;display:flex;align-items:center;gap:8px}
+main{display:grid;grid-template-columns:1fr 390px;height:calc(100vh - 59px)}
+#map{height:100%;background:#2a0a14}
+.leaflet-image-layer{transition:opacity .3s ease}
+aside{overflow:auto;background:var(--cream);border-left:1px solid var(--line);padding:14px}
+@media(max-width:800px){main{grid-template-columns:1fr;grid-template-rows:50vh 1fr}aside{border:0}}
+button{font:inherit;cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:10px;padding:6px 12px;transition:.15s;display:inline-flex;align-items:center;gap:6px;justify-content:center}
+button:hover{transform:translateY(-1px);box-shadow:0 3px 8px #7a123026}
+button.pri{background:var(--gold);color:var(--bur2);border-color:var(--gold);font-weight:700}
+.tabs{display:flex;gap:6px}.tabs button{flex:1}
+.tabs .on{background:var(--bur);color:var(--gold2);border-color:var(--bur)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.chip{border-radius:999px;padding:4px 11px 4px 5px}
+.chip.on{background:var(--gold);border-color:var(--gold);color:var(--bur2);font-weight:600}
+.bd{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;flex:none;box-shadow:0 2px 5px #2a0a1433}
+.item{display:flex;gap:10px;align-items:center;padding:10px 6px;border-bottom:1px solid var(--line);cursor:pointer;border-radius:10px;transition:.15s}
+.item:hover{background:#fff;transform:translateX(3px)}
+.item small,.msg{color:var(--mu);font-size:13px}
+.rk{color:var(--bur);font-weight:800;margin-right:4px}
+.st{color:var(--gold);letter-spacing:1px}
+.ph{position:relative}
+.px{position:absolute;top:4px;right:4px;padding:4px;border-radius:50%;background:#7a1230d9;border:0;line-height:0}
+.stars button.on{background:var(--gold);border-color:var(--gold)}
+.rv{padding:8px 0;border-bottom:1px solid var(--line)}
+.hint{background:#fff;border:1px dashed var(--gold);border-radius:10px;padding:8px 10px;font-size:13px;margin-bottom:10px}
+.stars{display:flex;gap:5px;margin:6px 0 10px}
+.stars button{padding:5px 11px;font-weight:700}
+.stars button:hover{background:var(--gold);border-color:var(--gold)}
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}
+.gal img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;cursor:zoom-in;transition:.15s}
+.gal img:hover{transform:scale(1.04)}
+dialog{border:0;border-radius:16px;padding:18px;width:min(92vw,380px);background:var(--cream);color:var(--ink)}
+dialog::backdrop{background:#2a0a1488}
+label{display:block;font-size:12px;color:var(--mu);margin:8px 0 2px}
+input,select,textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:10px;font:inherit;background:#fff}
+.row{display:flex;gap:8px;margin-top:12px;justify-content:flex-end}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--bur2);color:var(--gold2);padding:10px 16px;border-radius:12px;opacity:0;pointer-events:none;transition:.3s;z-index:9999;max-width:90vw}
+#toast.on{opacity:1;transform:translateX(-50%)}
+.mk{width:34px;height:44px;position:relative;transform-origin:50% 100%;transition:transform .2s;filter:drop-shadow(0 3px 3px #2a0a1466)}
+.mk svg{width:34px;height:44px;display:block}
+.mk:hover{transform:scale(1.2) translateY(-2px)}
+.mk.sel{animation:bn .7s ease}
+.mk.hot::before{content:"";position:absolute;left:7px;bottom:-3px;width:20px;height:8px;border-radius:50%;background:var(--gold);animation:pl 1.6s infinite}
+@keyframes bn{0%,100%{transform:translateY(0)}30%{transform:translateY(-14px)}60%{transform:translateY(0)}80%{transform:translateY(-5px)}}
+@keyframes pl{0%{transform:scale(.5);opacity:.95}100%{transform:scale(2.6);opacity:0}}
+[hidden]{display:none!important}
+.row{flex-wrap:wrap}
+#bus{position:relative;flex:0 1 250px;min-width:110px}
+#q{background:#ffffff1f;color:#fff8e8;border:1px solid #ffffff40;padding:6px 12px 6px 32px;border-radius:999px}
+#q::placeholder{color:#ffe9b0b0}
+#q:focus{background:#fff;color:var(--ink);outline:2px solid var(--gold)}
+.qi{position:absolute;left:10px;top:50%;transform:translateY(-50%);line-height:0;pointer-events:none}
+#qr{position:absolute;top:calc(100% + 6px);left:0;width:max(100%,300px);background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 24px #2a0a1440;z-index:3000;max-height:60vh;overflow:auto;color:var(--ink)}
+#qr .it{display:flex;gap:8px;align-items:center;padding:8px 10px;cursor:pointer}
+#qr .it:hover,#qr .it.on{background:var(--cream)}
+.dstc{background:var(--gold);color:var(--bur2);font-size:10px;font-weight:700;padding:1px 6px;border-radius:6px;margin-left:6px;vertical-align:middle}
+.fv{color:#d6285a}
+.tabs button{padding:6px 8px}
+@media(max-width:700px){h1{font-size:0}#who{display:none}#bus{flex-basis:140px}#qr{position:fixed;left:8px;right:8px;top:60px;width:auto}}
+
+/* ===== Foro ===== */
+[hidden]{display:none!important}
+#nav{display:flex;gap:6px;margin-left:16px;flex:1}
+#nav button{background:transparent;color:#fff8e8;border-color:#ffffff40}
+#nav button.on{background:var(--gold);color:var(--bur2);border-color:var(--gold);font-weight:700}
+#foro{display:grid;grid-template-columns:260px 1fr;height:calc(100vh - 59px)}
+#fLista{background:#fff;border-right:1px solid var(--line);padding:12px;overflow:auto}
+#fLista h4{margin:14px 0 6px;font-size:12px;text-transform:uppercase;color:var(--mu)}
+.fc{display:block;width:100%;text-align:left;margin-bottom:4px}
+.fc.on{background:var(--bur);color:var(--gold2);border-color:var(--bur)}
+#fCont{display:flex;flex-direction:column;min-height:0;background:var(--cream)}
+.fh{padding:12px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.fm{flex:1;overflow:auto;padding:8px 16px}
+.fx{padding:10px 16px;border-top:1px solid var(--line);background:#fff}
+.fr{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:6px;flex-wrap:wrap}
+.mi{padding:8px 0;border-bottom:1px solid var(--line)}
+.mi h3{margin:4px 0}
+.tx{white-space:pre-wrap;word-break:break-word}
+.adm{background:var(--gold);color:var(--bur2);font-size:10px;font-weight:700;padding:1px 6px;border-radius:6px;margin-left:4px}
+.lnk{border:0;background:none;color:var(--bur);padding:0 4px;text-decoration:underline;font-size:12px}
+.lug{margin-top:6px;border-color:var(--gold);background:#fff;display:flex;align-items:center;gap:8px}
+.pe{position:absolute;top:4px;left:4px;padding:4px;border-radius:50%;background:#2a0a14cc;border:0;line-height:0}
+.ph.oc img{filter:blur(14px)}
+.ocl{position:absolute;bottom:4px;left:4px;background:#2a0a14cc;color:#ffd966;font-size:11px;padding:1px 6px;border-radius:6px}
+@media(max-width:800px){#foro{grid-template-columns:1fr;grid-template-rows:auto 1fr}#fLista{border-right:0;border-bottom:1px solid var(--line);max-height:35vh}}
+
+/* ===== Mensajes estilo chat ===== */
+.fm{padding:10px 16px;background:#fdf1d6}
+.bub{display:flex;margin:4px 0}
+.bub.mio{justify-content:flex-end}
+.bub.otro{justify-content:flex-start}
+.bub.centro{justify-content:center;margin:14px 0}
+.bb{max-width:min(78%,520px);padding:6px 10px 4px;border-radius:12px;box-shadow:0 1px 1px #2a0a1426;word-break:break-word}
+.mio .bb{background:#ffe08a;border-bottom-right-radius:3px}
+.otro .bb{background:#fff;border-bottom-left-radius:3px}
+.centro .bb{max-width:min(94%,600px);width:100%;background:#fff;border:1px solid var(--gold);border-radius:14px;padding:10px 14px 6px;box-shadow:0 2px 6px #7a123022}
+.centro .au{text-align:center}
+.centro h3{text-align:center;color:var(--bur)}
+.au{font-size:12px;margin-bottom:2px;color:var(--bur)}
+.mt{display:flex;justify-content:flex-end;align-items:center;gap:6px;font-size:11px;color:var(--mu);margin-top:2px}
+.bb .lug{width:100%;text-align:left}
+.cd{font-variant-numeric:tabular-nums}
+@media(max-width:800px){.bb{max-width:86%}}
